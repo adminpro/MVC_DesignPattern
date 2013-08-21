@@ -754,3 +754,9 @@ tr.pager td {
             margin: 0;
         }
 }
+/*Custom style*/
+.box-model {
+    border:solid 2px #999;
+    padding:10px;
+    display:none;
+}

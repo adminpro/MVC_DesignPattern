@@ -1,10 +1,11 @@
 ﻿var vmCategory = {
     DataSource: ko.observableArray([]),
-    SelectedItem: null,
-    SelectItem: function (trackingMap) {
-        this.SelectedItem = trackingMap;
+    SelectedItem: ko.observable(null),
+    SelectItem: function (category) {
+        vmCategory.SelectedItem(category);
+        $('.box-model').show();
     },
-    NewTrackingMap: function () {
+    NewItem: function () {
         var newItem = {
             Id: 0,
             Name:'New category',
@@ -12,56 +13,70 @@
             Order:0,
             Status: false
         };
-        this.DataSource.push(newItem);
+        vmCategory.DataSource.push(newItem);
         return newItem;
     },
     Create: function () {
-        this.IsNew = true;
-        this.SelectItem(this.NewTrackingMap);
+        vmCategory.IsNew = true;
+        vmCategory.SelectItem(this.NewItem);
     },
-    Edit: function (trackingMap) {
-        this.IsNew = false;
-        this.SelectItem(trackingMap);
+    Edit: function (category) {
+        vmCategory.IsNew = false;
+        vmCategory.SelectItem(category);
     },
     Save: function () {
         //Case add
         var currentItem = this.SelectedItem;
-        if (trackingMap.TrackingMapId == 0) {
+        if (category.categoryId == 0) {
             $.ajax({
                 type: 'POST',
-                url: '/api/TrackingMapAPI/Create',
-                data: { trackingMap: currentItem }
+                url: '/api/CategoryApi/Create',
+                data: { category: currentItem }
             }).done(function (data) {
-                this.LoadTrackingMap;
+                vmCategory.Load();
+                vmCategory.IsNew = false;
             });
         }
         else {
             $.ajax({
                 type: 'PUT',
-                url: '/api/TrackingMapAPI/Edit',
-                data: { trackingMapId: currentItem.trackingMapId, currentItem: trackingMap }
+                url: '/api/CategoryApi/Edit',
+                data: { categoryId: currentItem.Id, currentItem: category }
             }).done(function (data) {
-                this.LoadTrackingMap;
+                vmCategory.Load();
             });
         }
     },
-    Delete: function (trackingMapId) {
+    Delete: function (categoryId) {
         $.ajax({
             type: 'POST',
-            url: '/api/TrackingMapAPI/Delete',
-            data: { trackingMapId: trackingMapId }
+            url: '/api/CategoryApi/Delete',
+            data: { categoryId: categoryId }
         }).done(function (data) {
-            this.LoadTrackingMap;
+            vmCategory.Load();
         });
     },
-    LoadTrackingMap: function () {
+    Load: function () {
         $.ajax({
             type: 'GET',
-            url: '/api/TrackingMapAPI/GetAll',
-            data: { skip: 0, take: 10 }
+            url: '/api/CategoryApi/GetAll',
+            data: { pIndex: 0, pSize: 10 }
         }).done(function (data) {
-            this.DataSource(data);
+            $.each(data, function (index) {
+                vmCategory.DataSource.push(toKoObserable(data[index]));
+            });
+            ko.applyBindings(vmCategory);
         });
     },
-    IsNew: false
+    IsNew: false,
+    IsShow: false
+}
+function toKoObserable(category) {
+    return {
+        Id: ko.observable(category.Id),
+        Name: ko.observable(category.Name),
+        Url: ko.observable(category.Url),
+        Order: ko.observable(category.Order),
+        Status: ko.observable(category.Status)
+    };
 }
