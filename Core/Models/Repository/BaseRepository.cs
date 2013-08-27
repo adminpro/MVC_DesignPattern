@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
 using System.Linq.Expressions;
-
+using System.Web;
+using Logger;
+using Common;
 namespace Core.Models.Repository
 {
     /// <summary>
@@ -228,9 +230,18 @@ namespace Core.Models.Repository
         /// <exception cref="System.NotImplementedException"></exception>
         public bool SaveChanges()
         {
-            //Log and save to database
-            if (!string.IsNullOrEmpty(this.UserName))
-                return _context.SaveChanges() > 0;
+            try
+            {
+                //Log and save to database
+                if (!string.IsNullOrEmpty(this.UserName))
+                    return _context.SaveChanges() > 0;
+            }
+            catch (Exception ex)
+            {
+
+                ErrorLog.WriteLog(ex.Message + Environment.NewLine + ex.StackTrace, HttpContext.Current.Server.MapPath(Constants.LogPath));
+            }
+            
             return false;
         }
     }

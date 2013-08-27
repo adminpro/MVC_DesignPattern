@@ -4,19 +4,19 @@ using System.Linq;
 using System.Data.Entity;
 using System.Reflection;
 using System.Data.Entity.ModelConfiguration;
-
+using Common;
 namespace Core.Models
 {
     public class BaseContext:DbContext
     {
-        public BaseContext():base("StrConnect")
+        public BaseContext():base(Constants.ConnectionString)
         {
             Database.SetInitializer<BaseContext>(null);
             this.Configuration.LazyLoadingEnabled = false;
         }
         public override int SaveChanges()
         {
-            throw new Exception("Your must be use repository of entity SaveChanges with userName argument.");
+            throw new Exception(Constants.SaveWarning);
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
