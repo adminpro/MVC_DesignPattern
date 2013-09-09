@@ -1,0 +1,45 @@
+﻿@model MVC_DesignPattern.ViewModel.VMBase64
+@{
+    ViewBag.Title = "Index";
+}
+<h2>
+    Index</h2>
+<fieldset>
+    <legend>Encode decode String Base64</legend>
+    @using (Html.BeginForm())
+    {
+        <div>
+            <label for="ddlType">
+                Type</label>
+            @Html.DropDownListFor(c => c.Type, ViewBag.Base64ConvertType as SelectList, new { id = "ddlType" })
+        </div>
+        <div>
+            <label for="txtSource">
+                Source text</label>
+            @Html.TextAreaFor(c => c.Source, new { @rows = 15, style = "width:100%" })
+        </div>
+        <div>
+            <input id="btnSubmit" type="button" value="Submit" />
+        </div>
+    }
+</fieldset>
+@section scripts{
+    <script src="../../Scripts/Base64/Base64.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btnSubmit').click(function (e) {
+                e.preventDefault();
+                switch ($('#ddlType').val()) {
+                    case "StringToBase64":
+                        $('form').attr('action', '@Url.Action("Encode", "Base64")');
+                        break;
+                    case "Base64ToString":
+                        $('form').attr('action', '@Url.Action("Decode", "Base64")');
+                        break;
+                }
+
+                $('form').submit();
+            });
+        });
+    </script>
+}
