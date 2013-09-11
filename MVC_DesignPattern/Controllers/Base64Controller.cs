@@ -7,7 +7,7 @@ using MVC_DesignPattern.ViewModel;
 
 namespace MVC_DesignPattern.Controllers
 {
-    public class Base64Controller : Controller
+    public class Base64Controller : BaseController
     {
         //
         // GET: /Base64/

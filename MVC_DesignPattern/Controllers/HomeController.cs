@@ -28,5 +28,10 @@ namespace MVC_DesignPattern.Controllers
 
             return View();
         }
+
+        public ActionResult JSTools()
+        {
+            return View();
+        }
     }
 }

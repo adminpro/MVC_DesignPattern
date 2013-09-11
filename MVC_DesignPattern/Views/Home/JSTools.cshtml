@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Javascript Tools";
+}
+
+<h2>Javascript Tools</h2>
+<fieldset>
+    <legend>Javascript tools</legend>
+    @using (Html.BeginForm())
+    {
+        <div>
+            <label for="txtSource">
+                Source String</label>
+                <textarea id="Source" rows="10" cols="200" style="width:100%"></textarea>
+        </div>
+        <div>
+            <label for="lblDestination">
+                Destination String</label>
+            <textarea id="Destination" rows="10" cols="200" style="width:100%"></textarea>
+        </div>
+        <div>
+            <input id="btnPack" type="button" value="Pack JS" />
+            <input id="btnUnpack" type="button" value="Unpack JS" />
+        </div>
+    }
+</fieldset>
