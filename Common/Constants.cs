@@ -21,7 +21,7 @@ namespace Common
         public const string SaveWarning = "Your must be use repository of entity SaveChanges with userName argument.";
         #endregion
         #region Website
-
+        public const string Language = "Language";
         #endregion
     }
 }

@@ -1,6 +1,72 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ErrorLog>
   <Log>
+    <Id>ba055d8e-8e12-4711-af82-adedf2519a28</Id>
+    <Url>http://localhost:6268/Base64/Encode</Url>
+    <Date>9/12/2013 5:56:49 PM</Date>
+    <Error>Source: mscorlib
+Message: String reference not set to an instance of a String.
+Parameter name: s
+Stack trace:    at System.Text.Encoding.GetBytes(String s)
+   at MVC_DesignPattern.Controllers.Base64Controller.Encode(VMBase64 vmEncode) in D:\Config\Projects\GITHUB\MVC_DesignPattern\MVC_DesignPattern\Controllers\Base64Controller.cs:line 44
+   at lambda_method(Closure , ControllerBase , Object[] )
+   at System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;&gt;c__DisplayClass42.&lt;BeginInvokeSynchronousActionMethod&gt;b__41()
+   at System.Web.Mvc.Async.AsyncResultWrapper.&lt;&gt;c__DisplayClass8`1.&lt;BeginSynchronous&gt;b__7(IAsyncResult _)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;&gt;c__DisplayClass37.&lt;&gt;c__DisplayClass39.&lt;BeginInvokeActionMethodWithFilters&gt;b__33()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;&gt;c__DisplayClass4f.&lt;InvokeActionMethodFilterAsynchronously&gt;b__49()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;&gt;c__DisplayClass37.&lt;BeginInvokeActionMethodWithFilters&gt;b__36(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;&gt;c__DisplayClass25.&lt;&gt;c__DisplayClass2a.&lt;BeginInvokeAction&gt;b__20()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;&gt;c__DisplayClass25.&lt;BeginInvokeAction&gt;b__22(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult)
+   at System.Web.Mvc.Controller.&lt;&gt;c__DisplayClass1d.&lt;BeginExecuteCore&gt;b__18(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.&lt;&gt;c__DisplayClass4.&lt;MakeVoidDelegate&gt;b__3(IAsyncResult ar)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   at System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.&lt;&gt;c__DisplayClass4.&lt;MakeVoidDelegate&gt;b__3(IAsyncResult ar)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   at System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)
+   at System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult)
+   at System.Web.Mvc.MvcHandler.&lt;&gt;c__DisplayClass8.&lt;BeginProcessRequest&gt;b__3(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.&lt;&gt;c__DisplayClass4.&lt;MakeVoidDelegate&gt;b__3(IAsyncResult ar)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   at System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)</Error>
+  </Log>
+  <Log>
+    <Id>62446821-2078-4e82-8596-ef0311592be0</Id>
+    <Url>http://localhost:6268/</Url>
+    <Date>9/12/2013 5:35:58 PM</Date>
+    <Error>Source: System.Web.Mvc
+Message: The given filter instance must implement one or more of the following filter interfaces: IAuthorizationFilter, IActionFilter, IResultFilter, IExceptionFilter.
+Stack trace:    at System.Web.Mvc.GlobalFilterCollection.ValidateFilterInstance(Object instance)
+   at System.Web.Mvc.GlobalFilterCollection.AddInternal(Object filter, Nullable`1 order)
+   at System.Web.Mvc.GlobalFilterCollection.Add(Object filter)
+   at MVC_DesignPattern.FilterConfig.RegisterGlobalFilters(GlobalFilterCollection filters) in D:\Config\Projects\GITHUB\MVC_DesignPattern\MVC_DesignPattern\App_Start\FilterConfig.cs:line 12
+   at MVC_DesignPattern.MvcApplication.Application_Start() in D:\Config\Projects\GITHUB\MVC_DesignPattern\MVC_DesignPattern\Global.asax.cs:line 30</Error>
+  </Log>
+  <Log>
+    <Id>603f4ddd-4a6d-4db6-a297-c3ffb1879bd5</Id>
+    <Url>http://localhost:6268/</Url>
+    <Date>9/12/2013 5:34:33 PM</Date>
+    <Error>Source: System.Web.Mvc
+Message: The given filter instance must implement one or more of the following filter interfaces: IAuthorizationFilter, IActionFilter, IResultFilter, IExceptionFilter.
+Stack trace:    at System.Web.Mvc.GlobalFilterCollection.ValidateFilterInstance(Object instance)
+   at System.Web.Mvc.GlobalFilterCollection.AddInternal(Object filter, Nullable`1 order)
+   at System.Web.Mvc.GlobalFilterCollection.Add(Object filter)
+   at MVC_DesignPattern.FilterConfig.RegisterGlobalFilters(GlobalFilterCollection filters) in D:\Config\Projects\GITHUB\MVC_DesignPattern\MVC_DesignPattern\App_Start\FilterConfig.cs:line 12
+   at MVC_DesignPattern.MvcApplication.Application_Start() in D:\Config\Projects\GITHUB\MVC_DesignPattern\MVC_DesignPattern\Global.asax.cs:line 30</Error>
+  </Log>
+  <Log>
     <Id>0d06a92c-ec63-4f49-87b3-c5672bd61d13</Id>
     <Url>http://localhost:6268/Base64/Botay</Url>
     <Date>9/11/2013 2:43:01 PM</Date>
