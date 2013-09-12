@@ -7,8 +7,8 @@ using System.Web.Routing;
 
 namespace MVC_DesignPattern.Controllers
 {
-    [HandleError(ExceptionType=typeof(HttpNotFoundResult), View="Error")]
-    public class BaseController: Controller
+    [HandleError(ExceptionType = typeof(HttpException), View = "Error")]
+    public class BaseController : Controller
     {
         //protected override void HandleUnknownAction(string actionName)
         //{

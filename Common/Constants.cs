@@ -17,6 +17,7 @@ namespace Common
         #endregion
         #region Core
         public const string ConnectionString = "StrConnect";
+        public const string HomeStrConnect = "HomeStrConnect";
         public const string SaveWarning = "Your must be use repository of entity SaveChanges with userName argument.";
         #endregion
         #region Website

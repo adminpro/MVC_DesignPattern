@@ -38,6 +38,9 @@ namespace MVC_DesignPattern
                         "~/Content/themes/base/jquery.ui.datepicker.css",
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css"));
+
+            // Code removed for clarity. compilation debug="false"
+            BundleTable.EnableOptimizations = true;
         }
     }
 }
