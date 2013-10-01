@@ -6,8 +6,9 @@ using System.Linq.Expressions;
 
 namespace Core.Models.Repository
 {
-    public interface IBaseRepository<TKey, TEntity> where TEntity:class
+    public interface IBaseRepository<TKey, TEntity> where TEntity : class
     {
+        BaseContext DataContext { get; }
         IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy, string includeProperties);
         IEnumerable<TEntity> GetPaging(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy, string includeProperties, int pIndex, int pSize);
         IQueryable<TEntity> GetAll();

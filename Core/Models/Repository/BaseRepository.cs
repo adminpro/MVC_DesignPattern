@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Web;
 using Logger;
 using Common;
+using System.Threading;
 namespace Core.Models.Repository
 {
     /// <summary>
@@ -13,8 +14,18 @@ namespace Core.Models.Repository
     /// </summary>
     /// <typeparam name="TKey">The type of the T key.</typeparam>
     /// <typeparam name="TEntity">The type of the T entity.</typeparam>
-    public class BaseRepository<TKey, TEntity> : IBaseRepository<TKey, TEntity> where TEntity : class
+    public class BaseRepository<TKey, TEntity> : IDisposable, IBaseRepository<TKey, TEntity> where TEntity : class
     {
+        private string _dataContextKey;
+        protected string DataContextKey
+        {
+            get
+            {
+                if (_dataContextKey==null)
+                    _dataContextKey = "_dataContext" + typeof(BaseContext).FullName;
+                 return _dataContextKey;
+            }
+        }
         /// <summary>
         /// Gets or sets the name of the user.
         /// </summary>
@@ -38,16 +49,46 @@ namespace Core.Models.Repository
         public BaseRepository(string userName)
         {
             this.UserName = userName;
-            if (_context == null)
-            {
-                _context = new BaseContext();
-                Entities = _context.Set<TEntity>();
-            }
+            Entities = DataContext.Set<TEntity>();
         }
         /// <summary>
         /// The _context
         /// </summary>
-        private BaseContext _context;
+        private BaseContext _dataContext;
+        public BaseContext DataContext
+        {
+            get
+            {
+                if (_dataContext == null)
+                {
+                    if (HttpContext.Current != null)
+                    {
+                        _dataContext = (BaseContext)HttpContext.Current.Items[DataContextKey];
+                        if (_dataContext == null)
+                        {
+                            _dataContext = new BaseContext();
+                            HttpContext.Current.Items[DataContextKey] = _dataContext;
+                        }
+                    }
+                    else
+                    {
+                        var threadData = Thread.GetNamedDataSlot(DataContextKey);
+
+                        if (threadData != null)
+                            _dataContext = Thread.GetData(threadData) as BaseContext;
+
+                        if (_dataContext == null)
+                        {
+                            _dataContext = new BaseContext();
+                            if (threadData == null)
+                                threadData = Thread.AllocateNamedDataSlot(DataContextKey);
+                            Thread.SetData(threadData, _dataContext);
+                        }
+                    }
+                }
+                return _dataContext;
+            }
+        }
         /// <summary>
         /// The entities
         /// </summary>
@@ -59,7 +100,7 @@ namespace Core.Models.Repository
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>IEnumerable{`1}.</returns>
-        public IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, 
+        public IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>,
             IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "")
         {
             IQueryable<TEntity> query = Entities;
@@ -94,7 +135,7 @@ namespace Core.Models.Repository
         /// <param name="pIndex">Index of the p.</param>
         /// <param name="pSize">Size of the p.</param>
         /// <returns>IEnumerable{`1}.</returns>
-        public IEnumerable<TEntity> GetPaging(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, 
+        public IEnumerable<TEntity> GetPaging(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>,
             IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "", int pIndex = 0, int pSize = 20)
         {
             IQueryable<TEntity> query = Entities;
@@ -201,7 +242,7 @@ namespace Core.Models.Repository
             if (this.Exists(key))
             {
                 Entities.Attach(entity);
-                _context.Entry<TEntity>(entity).State = EntityState.Modified;
+                DataContext.Entry<TEntity>(entity).State = EntityState.Modified;
                 if (saveChanges)
                     this.SaveChanges();
                 return entity;
@@ -234,15 +275,21 @@ namespace Core.Models.Repository
             {
                 //Log and save to database
                 if (!string.IsNullOrEmpty(this.UserName))
-                    return _context.SaveChanges() > 0;
+                    return _dataContext.SaveChanges() > 0;
             }
             catch (Exception ex)
             {
 
                 ErrorLog.WriteLog(ex.Message + Environment.NewLine + ex.StackTrace, HttpContext.Current.Server.MapPath(Constants.LogPath));
             }
-            
+
             return false;
+        }
+
+        public void Dispose()
+        {
+            if (_dataContext != null)
+                _dataContext = null;
         }
     }
 }

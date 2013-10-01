@@ -7,7 +7,7 @@ using System.Data.Entity.ModelConfiguration;
 using Common;
 namespace Core.Models
 {
-    public class BaseContext:DbContext
+    public class BaseContext:DbContext, IDisposable
     {
         public BaseContext():base(Constants.ConnectionString)
         {

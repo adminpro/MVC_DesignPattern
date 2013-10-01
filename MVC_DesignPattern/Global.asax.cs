@@ -10,6 +10,7 @@ using Core.Models;
 using SqlDatabase.DbInitializer;
 using Logger;
 using Common;
+using System.Collections;
 namespace MVC_DesignPattern
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -48,6 +49,22 @@ namespace MVC_DesignPattern
                "Message: " + exception.Message + Environment.NewLine +
                "Stack trace: " + exception.StackTrace;
             ErrorLog.WriteLog(ctx.Request.Url.ToString(), errorInfo, Server.MapPath(Constants.LogPath));
+        }
+
+        //Implement IDisposable
+        protected void Application_EndRequest(Object sender, EventArgs e)
+        {
+            var keys = new ArrayList(HttpContext.Current.Items.Keys);
+
+            foreach (var key in keys)
+            {
+                var disposable = HttpContext.Current.Items[key] as IDisposable;
+                if (disposable != null)
+                {
+                    disposable.Dispose();
+                    HttpContext.Current.Items[key] = null;
+                }
+            }
         }
     }
 }

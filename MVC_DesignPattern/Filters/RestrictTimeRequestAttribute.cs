@@ -12,14 +12,16 @@ namespace MVC_DesignPattern.Filters
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class RestrictTimeRequestAttribute: ActionFilterAttribute, IActionFilter
     {
-        public string Name { get; set; }
-        public string Message { get; set; }
-        public int Seconds { get; set; }
+        public string Name;
+        public string Message;
+        public int Seconds;
 
         public override void OnActionExecuting(System.Web.Http.Controllers.HttpActionContext actionContext)
         {
+            if (this.Seconds == 0)
+                this.Seconds = 5;
             //System.Web.Mvc.ActionExecutingContext 
-            var cacheKey = string.Concat(this.Name, "-", HttpContext.Current.Request.UserHostAddress);
+            var cacheKey = string.Concat(this.Name, "-", HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"]?? HttpContext.Current.Request.UserHostAddress);
             bool allowExecute = false;
 
             if (HttpRuntime.Cache[cacheKey]==null)
@@ -42,8 +44,9 @@ namespace MVC_DesignPattern.Filters
 
                 //actionContext.ControllerContext
                 //// see 409 - http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
-                actionContext.Response.Content = new StringContent(this.Message);
-                actionContext.Response.StatusCode = HttpStatusCode.Conflict;
+                actionContext.Response = new HttpResponseMessage(HttpStatusCode.Conflict);
+                //actionContext.Response.Content = new StringContent(this.Message);
+                //actionContext.Response.StatusCode = HttpStatusCode.Conflict;
             }
             else
                 base.OnActionExecuting(actionContext);
