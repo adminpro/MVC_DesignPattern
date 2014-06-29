@@ -54,13 +54,37 @@
     <Compile Include="Models\DbInitializer\DataBaseInitializer.cs" />
     <Compile Include="Models\Interface\ICategoryRepository.cs" />
     <Compile Include="Models\Interface\INewsRepository.cs" />
+    <Compile Include="Models\LessionLearn\Chapter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\LessionLearn\Lession.cs" />
+    <Compile Include="Models\LessionLearn\LessionGroup.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\LessionLearn\LessionReleate.cs" />
+    <Compile Include="Models\LessionLearn\TopicGroup.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\Mapping\CategoryMap.cs" />
+    <Compile Include="Models\Mapping\ChapterMap.cs" />
+    <Compile Include="Models\Mapping\LessionMap.cs" />
+    <Compile Include="Models\Mapping\LessionGroupMap.cs" />
+    <Compile Include="Models\Mapping\LessionReleateMap.cs" />
     <Compile Include="Models\Mapping\NewsMap.cs" />
+    <Compile Include="Models\Mapping\TopicGroup.cs" />
     <Compile Include="Models\News.cs" />
-    <Compile Include="Models\Repository\BaseRepository.cs" />
-    <Compile Include="Models\Repository\CategoryRepository.cs" />
     <Compile Include="Models\Interface\IBaseRepository.cs" />
-    <Compile Include="Models\Repository\NewsRepository.cs" />
+    <Compile Include="Models\Repository\BaseRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Repository\CategoryRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Repository\ChapterRepository.cs" />
+    <Compile Include="Models\Repository\NewsRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Repository\TopicGroupRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -32,7 +32,5 @@ namespace Core.Models
             Database.SetInitializer<BaseContext>(null);
             base.OnModelCreating(modelBuilder);
         }
-
-
     }
 }

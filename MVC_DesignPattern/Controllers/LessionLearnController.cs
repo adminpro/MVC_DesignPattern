@@ -7,9 +7,8 @@ using MVC_DesignPattern.Filters;
 
 namespace MVC_DesignPattern.Controllers
 {
-    public class HomeController : Controller
+    public class LessionLearnController : Controller
     {
-        [Compress()]
         [RestrictTimeRequest(Name="Index", Seconds=5, Message = "Please don't refresh quickly...")]
         public ActionResult Index()
         {
@@ -17,15 +16,15 @@ namespace MVC_DesignPattern.Controllers
 
             return View();
         }
-        [RestrictTimeRequest(Name = "About", Seconds = 5, Message = "Please don't refresh quickly...")]
-        public ActionResult About()
+        [RestrictTimeRequest(Name = "TopicGroup", Seconds = 5, Message = "Please don't refresh quickly...")]
+        public ActionResult TopicGroup()
         {
-            ViewBag.Message = "Your app description page.";
+            ViewBag.Message = "Lession learn: TopicGroup.";
 
             return View();
         }
-        [RestrictTimeRequest(Name = "Contact", Seconds = 5, Message = "Please don't refresh quickly...")]
-        public ActionResult Contact()
+        [RestrictTimeRequest(Name = "Chapter", Seconds = 5, Message = "Please don't refresh quickly...")]
+        public ActionResult Chapter()
         {
             ViewBag.Message = "Your contact page.";
 

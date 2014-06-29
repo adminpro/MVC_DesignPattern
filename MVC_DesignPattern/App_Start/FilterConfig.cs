@@ -13,6 +13,7 @@ namespace MVC_DesignPattern
         }
         public static void RegisterHttpFilters(HttpFilterCollection filters)
         {
+            filters.Add(new CompressAttribute());
             filters.Add(new RestrictTimeRequestAttribute());
         }
     }

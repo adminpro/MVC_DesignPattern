@@ -20,7 +20,7 @@ namespace MVC_DesignPattern
     {
         protected void Application_Start()
         {
-            //Init database if not exists
+            ////Init database if not exists
             //var context = new BaseContext();
             //var dataBaseInitializer = new DataBaseInitializer();
             //dataBaseInitializer.InitializeDatabase(context);

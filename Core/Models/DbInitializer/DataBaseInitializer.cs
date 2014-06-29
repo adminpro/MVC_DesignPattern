@@ -7,6 +7,9 @@ namespace SqlDatabase.DbInitializer
     {
         public void InitializeDatabase(BaseContext context)
         {
+            //if (context.Database.Exists())
+            //    if (context.Database.Delete())
+            //        context.Database.Create();
             context.Database.CreateIfNotExists();
         }
     }
